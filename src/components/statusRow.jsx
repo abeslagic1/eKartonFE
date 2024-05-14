@@ -24,7 +24,7 @@ const StatusRow = ({ id, avatarSrc, name, date, task, initialStatus }) => {
             <td>{ date }</td>
             <td>{ task }</td>
             <td
-                className={ `bg-${status === 'APPROVED' ? 'green' : status === 'DECLINED' ? 'red' : 'blue'}-200 text-${status === 'APPROVED' ? 'green' : status === 'DECLINED' ? 'red' : 'blue'}-600 rounded-md` }
+                className={ `bg-${status === 'APPROVED' ? 'green' : status === 'REJECTED' ? 'red' : 'blue'}-200 text-${status === 'APPROVED' ? 'green' : status === 'REJECTED' ? 'red' : 'blue'}-600 rounded-md` }
                 onClick={ () => setShowStatusChange(prev => !prev) }
             >
                 { status }
@@ -41,7 +41,7 @@ const StatusRow = ({ id, avatarSrc, name, date, task, initialStatus }) => {
                         boxShadow: '0 0 10px rgba(0, 0, 0, 0.25)'
                     } }>
                         <button className="bg-green-200 text-green-600 rounded-md" style={ { marginRight: '20px' } } onClick={ (event) => { event.stopPropagation(); handleStatusChange('APPROVED') } }>APPROVED</button>
-                        <button className="bg-red-200 text-reg-600 rounded-md" style={ { marginRight: '20px', marginTop: '20px' } } onClick={ (event) => { event.stopPropagation(); handleStatusChange('DECLINED') } }>DECLINED</button>
+                        <button className="bg-red-200 text-reg-600 rounded-md" style={ { marginRight: '20px', marginTop: '20px' } } onClick={ (event) => { event.stopPropagation(); handleStatusChange('REJECTED') } }>REJECTED</button>
                         <button className="bg-blue-200 text-blue-600 rounded-md" style={ { marginRight: '20px', marginTop: '20px' } } onClick={ (event) => { event.stopPropagation(); handleStatusChange('PENDING') } }>PENDING</button>
                     </div>
                 ) }

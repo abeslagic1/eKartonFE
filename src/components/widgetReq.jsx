@@ -16,11 +16,11 @@ const WidgetLG = () => {
 
     return (
         <div className="shadow-lg p-6">
-            <h3 className="font-bold text-xl mb-4">Upcoming Consultations</h3>
+            <h3 className="font-bold text-xl mb-4">Change Requests</h3>
             <table className="table-fixed w-full text-center border-separate border-spacing-y-3 ">
                 <thead>
                     <tr>
-                        <th>Patient</th>
+                        <th>User</th>
                         <th>Date</th>
                         <th>Description</th>
                         <th>Status</th>
