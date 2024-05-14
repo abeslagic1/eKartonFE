@@ -10,6 +10,7 @@ import Consultations from "./pages/consultations";
 import Patients from "./pages/patients";
 import Doctors from "./pages/doctors";
 import LoginPage from "./login";
+import Requests from "./pages/requests";
 
 const App = () => {
   const location = useLocation();
@@ -31,6 +32,7 @@ const App = () => {
           <div className="flex-[4_4_0%] ">
             <Routes>
               <Route path="/" element={ <Home /> } />
+              <Route path="/requests" element={ <Requests /> } />
               <Route path="/login" element={ <LoginPage /> } />
               <Route path="/patients" element={ <Patients /> } />
               <Route path="/doctors" element={ <Doctors /> } />
