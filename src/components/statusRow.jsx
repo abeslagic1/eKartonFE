@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { Avatar } from "@mui/material";
+import { updateRequestStatus } from '../api/requests/requestsAPI'; // import the function
 
-const StatusRow = ({ avatarSrc, name, date, task, initialStatus }) => {
+const StatusRow = ({ id, avatarSrc, name, date, task, initialStatus }) => {
     const [status, setStatus] = useState(initialStatus);
     const [showStatusChange, setShowStatusChange] = useState(false);
 
     const handleStatusChange = (newStatus) => {
-        setStatus(newStatus);
+        updateRequestStatus(id, newStatus) // send API request
+            .then(() => {
+                setStatus(newStatus); // update status on success
+            })
+            .catch(error => console.error(error)); // handle error
         setShowStatusChange(false);
     };
 
@@ -19,7 +24,7 @@ const StatusRow = ({ avatarSrc, name, date, task, initialStatus }) => {
             <td>{ date }</td>
             <td>{ task }</td>
             <td
-                className={ `bg-${status === 'Accepted' ? 'green' : status === 'Declined' ? 'red' : 'blue'}-200 text-${status === 'Accepted' ? 'green' : status === 'Declined' ? 'red' : 'blue'}-600 rounded-md` }
+                className={ `bg-${status === 'APPROVED' ? 'green' : status === 'DECLINED' ? 'red' : 'blue'}-200 text-${status === 'APPROVED' ? 'green' : status === 'DECLINED' ? 'red' : 'blue'}-600 rounded-md` }
                 onClick={ () => setShowStatusChange(prev => !prev) }
             >
                 { status }
@@ -35,9 +40,9 @@ const StatusRow = ({ avatarSrc, name, date, task, initialStatus }) => {
                         borderRadius: '10px',
                         boxShadow: '0 0 10px rgba(0, 0, 0, 0.25)'
                     } }>
-                        <button className="bg-green-200 text-green-600 rounded-md" style={ { marginRight: '20px' } } onClick={ (event) => { event.stopPropagation(); handleStatusChange('Accepted') } }>Accepted</button>
-                        <button className="bg-red-200 text-reg-600 rounded-md" style={ { marginRight: '20px', marginTop: '20px' } } onClick={ (event) => { event.stopPropagation(); handleStatusChange('Declined') } }>Declined</button>
-                        <button className="bg-blue-200 text-blue-600 rounded-md" style={ { marginRight: '20px', marginTop: '20px' } } onClick={ (event) => { event.stopPropagation(); handleStatusChange('Pending') } }>Pending</button>
+                        <button className="bg-green-200 text-green-600 rounded-md" style={ { marginRight: '20px' } } onClick={ (event) => { event.stopPropagation(); handleStatusChange('APPROVED') } }>APPROVED</button>
+                        <button className="bg-red-200 text-reg-600 rounded-md" style={ { marginRight: '20px', marginTop: '20px' } } onClick={ (event) => { event.stopPropagation(); handleStatusChange('DECLINED') } }>DECLINED</button>
+                        <button className="bg-blue-200 text-blue-600 rounded-md" style={ { marginRight: '20px', marginTop: '20px' } } onClick={ (event) => { event.stopPropagation(); handleStatusChange('PENDING') } }>PENDING</button>
                     </div>
                 ) }
             </td>

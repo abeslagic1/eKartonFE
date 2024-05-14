@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { resolve } from '../resolver';
-import { backend_password, backend_username } from '../config';
+import { encodeCredentials } from '../encoder';
+import { backend_password, backend_username } from '../../config';
 
 /* You can send both Basic Auth and Bearer token in the headers of your request by adding them as separate properties. Here's how you can do it:
 
@@ -30,22 +31,26 @@ export async function addFileToFavourites(fileId) {
 }
 
 export async function getRequests(options) {
+    let encodedCredentials = encodeCredentials(backend_username, backend_password);
+
     return await resolve(
         axios({
             method: 'get',
             url: 'http://localhost:8080/api/zahtjevi',
             params: options,
-            headers: { 'Authorization': 'Basic ' + Buffer.from(backend_username + ":" + backend_password).toString('base64') }
+            headers: { 'Authorization': 'Basic ' + encodedCredentials }
         }));
 }
 
-export async function deleteFavouriteFile(fileId) {
+export async function updateRequestStatus(requestId, status) {
+    let encodedCredentials = encodeCredentials(backend_username, backend_password);
+
     return await resolve(
         axios({
-            method: 'delete',
-            url: 'http://localhost:3001/api/v1/favouriteFiles/deleteFavouriteFile',
-            data: { fileId },
-            headers: { 'Authorization': 'Bearer ' + window.localStorage.token }
+            method: 'put',
+            url: 'http://localhost:8080/api/zahtjevi/' + requestId + '/status',
+            data: { status },
+            headers: { 'Authorization': 'Basic ' + encodedCredentials }
         }));
 }
 
